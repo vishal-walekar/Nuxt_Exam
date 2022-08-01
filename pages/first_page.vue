@@ -9,7 +9,7 @@
 
                 <label class="font-bold text-xl" for="firstname">Slot Book</label>
                 <div>
-                    <a href="index">To Index Page</a>
+                    <a href="index.vue">To Index Page</a>
                 </div>
                 
 

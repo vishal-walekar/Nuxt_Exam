@@ -17,16 +17,19 @@
 
                 <label class="font-bold text-xl" for="date">Data</label>
                 <input type="date" v-model="user.date" id="date" name="date" placeholder="dd-mm-yyyy" min="2022-08-01" max="2023-08-" />
-
-                <div class="pt-3">
-                    <label class="font-bold text-xl pt-3" for="time"> Selected Time Slot: </label>
+                
+                    <label class="font-bold text-xl" for="date">Selected Time Slot Time</label>
+                    <input type="time" v-model="user.time" id="time" name="time" min="9:00" />
+               
+                <!-- <div class="pt-3">
+                    <label class="font-bold text-xl pt-3" for="time"> Selected Time Slot 1: </label>
                     <div>
 
                         <select v-model="user.time">
                             <option>select</option>
 
-                            <option v-if="slot=myarr[user.time]">9:00 To 9:10</option>
-                            <option v-else>9:10 To 9:20</option>
+                            <option>9:00 To 9:10</option>
+                            <option>9:10 To 9:20</option>
                             <option>9:20 To 9:30</option>
                             <option>9:30 To 9:40</option>
                             <option>9:40 To 9:50</option>
@@ -71,7 +74,7 @@
                         <small>Slot starts at 9 AM and end 3 PM .</small>
 
                     </div>
-                </div>
+                </div> -->
 
                 <div class="text-center pt-10">
                     <button class="py-2 px-10 mr-5 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md mb-3" type="submit" @click="customSubmit"> Book Now </button>
@@ -103,7 +106,7 @@
                 <td class="px-4 border-black rounded-lg border-2">{{item.time}}</td>
 
                 <td class="px-4 border-black rounded-lg border-2">
-                    <!-- <button class="py-1 px-5 mr-5 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md " type="delete" @click="customDelete(i)"> Slot Delete </button> -->
+                    <button class="py-1 px-5 mr-5 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md " type="delete" @click="customDelete(i)"> Slot Delete </button>
                     <button class="py-1 px-5 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md" type="edit" @click="customEdit(i)"> Edit Details </button>
 
                 </td>
@@ -121,7 +124,7 @@ export default {
             isEdit: false,
             indexEdit: -1,
             myarr: [],
-            slot:'time',
+            slot: 'time',
 
             user: {
                 id: 0,
