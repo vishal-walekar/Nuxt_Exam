@@ -1,6 +1,7 @@
 <template>
 <main class="flex justify-center">
     <div class="p-2">
+        <form action="/first_page.vue"></form>
         <form @submit="customSubmit" class="bg-gray-100 border-black rounded-lg border-2 px-12 ">
             <table class="grid  content-center">
                 <h2 class="text-teal-900  text-center font-bold text-4xl pt-6">Registration Form </h2>
@@ -82,7 +83,7 @@
         </form>
         <br>
         <table class="list">
-            <h1 class="text-teal-900 text-xl font-bold pt-1">DataBase table:</h1>
+            <h1 class="text-teal-900 text-xl font-bold pt-1"> Booked slots</h1>
             <tr>
                 <th class="px-4 border-black rounded-lg border-2">Id</th>
                 <th class="px-4 border-black rounded-lg border-2">Name</th>
@@ -114,15 +115,13 @@
 </template>
 
 <script>
-//import { isThisExpression } from '@babel/types';
-
 export default {
     data() {
         return {
             isEdit: false,
             indexEdit: -1,
             myarr: [],
-            slot: 'time',
+            slot:'time',
 
             user: {
                 id: 0,
