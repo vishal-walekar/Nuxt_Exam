@@ -6,17 +6,41 @@
         <hr />
         <br />
 
+        <form class="bg-gray-100 border-black rounded-lg border-2 px-12 ">
+            <table class="grid  content-center">
+                <h2 class="text-teal-900  text-center font-bold text-4xl pt-6">Admin</h2>
+                <h3 class="text-teal-900  text-center font-bold pt-6">Login page</h3>
+                <br />
+                <hr />
+                <br />
+                <label class="font-bold text-xl" for="username">UserName</label>
+                <input  @change="validationusername" type="text" id="username" name="username" placeholder="Enter your username" />
+
+                <label class="font-bold text-xl pt-3" for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" />
+
+                <div class="text-center pt-10">
+                    <button @click="displayslot" class="py-2 px-10 mr-5 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md mb-3" type="submit"> Login </button>
+
+                    <button class="py-2 px-10 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md mb-3" type="reset"> Reset </button>
+
+                </div>
+            </table>
+        </form>
+
+        <div v-if="slotshow == true">
+            <label class="font-bold text-xl"> Select your slots: </label>
+            <button class="py-1 border-4  bg-blue-200 hover:bg-blue-400 border-black" @click="showSlots">click here to show</button>
+        </div>
         <div>
-            <div><label class="font-bold text-xl"> Select your slots: </label>
-                <button class="py-1 border-4  bg-blue-200 hover:bg-blue-400 border-black" @click="showSlots">click here to show</button></div>
+
             <div class="bg-fuchsia-300 border-4 border-black w-1/10" v-for="item in timeSlots">
 
-
                 <tr v-for="(item, i) in myarr" :key="item">
-                <td class="px-4 border-black rounded-lg border-2">{{item.id = i+1}}</td>
-                <td class="px-4 border-black rounded-lg border-2">{{item.firstname}}</td>
-                <td class="px-4 border-black rounded-lg border-2">{{item.number}}</td>
-                 </tr>
+                    <td class="px-4 border-black rounded-lg border-2">{{item.id = i+1}}</td>
+                    <td class="px-4 border-black rounded-lg border-2">{{item.firstname}}</td>
+                    <td class="px-4 border-black rounded-lg border-2">{{item.number}}</td>
+                </tr>
 
                 <div class="font-bold text-xl p-5">Start Time {{item.startTime }}</div>
                 <div class="font-bold text-xl p-5">End Time {{ item.endTime }}</div>
@@ -26,9 +50,9 @@
                         <label for="firstname"> Book now </label>
 
                     </button>
-                   
+
                 </div>
-                
+
             </div>
         </div>
 
@@ -44,7 +68,7 @@
                 <input @change="validationName" type="text" v-model="user.firstname" id="firstname" name="firstname" placeholder="Enter your full name" required />
 
                 <label class="font-bold text-xl pt-3" for="number">Phone Number: </label>
-                <input @change="namecheck" type="number" v-model="user.number" id="number" name="number" placeholder="Enter your number" required/>
+                <input @change="namecheck" type="number" v-model="user.number" id="number" name="number" placeholder="Enter your number" required />
 
                 <div class="text-center pt-10">
                     <button class="py-2 px-10 mr-5 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md mb-3" type="submit" @click="customSubmit"> Submit </button>
@@ -74,7 +98,7 @@
 
                 <td class="px-4 border-black rounded-lg border-2">
                     <button class="py-1 px-5 mr-5 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md " type="delete" @click="customDelete(i)"> Slot Delete </button>
-                    <button  class="py-1 px-5 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md" type="edit" @click="customEdit(i)" for="firstname">  Edit Details </button>
+                    <button class="py-1 px-5 bg-blue-500 hover:bg-blue-700 text-white font-bold text-center rounded-md" type="edit" @click="customEdit(i)" for="firstname"> Edit Details </button>
 
                 </td>
 
@@ -91,11 +115,11 @@ export default {
         return {
             isEdit: false,
             formshow: false,
-            formhide:false,
+            slotshow: false,
+            formhide: true,
             indexEdit: -1,
             myarr: [],
             timeSlots: [],
-
             user: {
                 id: 0,
                 firstname: '',
@@ -103,14 +127,11 @@ export default {
                 date: '',
                 time: '',
             },
-
         };
     },
     methods: {
-
         customSubmit(event) {
             event.preventDefault();
-
             if (this.isEdit == true) {
                 this.myarr[this.indexEdit] = this.user;
                 this.isEdit = false;
@@ -119,7 +140,6 @@ export default {
                 this.myarr.push(this.user);
             }
             this.hideform();
-
             this.user = {
                 id: 0,
                 firstname: '',
@@ -127,21 +147,17 @@ export default {
                 date: '',
                 time: '',
             };
-
         },
         customDelete(index) {
             this.myarr.splice(index, 1);
-
         },
         customEdit(index) {
             this.user.firstname = this.myarr[index].firstname;
             this.user.number = this.myarr[index].number;
             this.user.date = this.myarr[index].date;
             // this.user.time = this.myarr[index].time;
-
             this.isEdit = true;
             this.indexEdit = index;
-
         },
         showSlots() {
             var d;
@@ -162,11 +178,14 @@ export default {
         display() {
             this.formshow = true;
         },
-
-        hideform(){
-            this.formshow=false;
+        displayslot(event) {
+            event.preventDefault();
+            this.slotshow = true;
         },
 
+        hideform() {
+            this.formshow = false;
+        },
         validationName() {
             if (!isNaN(this.user.firstname) || this.user.firstname == null || this.user.firstname == "") {
                 alert("Please Enter Name");
@@ -177,6 +196,18 @@ export default {
                 // alert("Name is valid");
             }
         },
+
+         validationusername() {
+            if (!isNaN(this.username) || this.username == null || this.username == "") {
+                alert("Name is valid");
+                // console.log("valis username");
+                this.resetForm();
+            } else {
+                //console.log(this.username);
+                alert("Name is valid");
+            }
+        },
+
         namecheck() {
             if (isNaN(this.user.number) || this.user.number < 1000000000 || this.user.number > 9999999999) {
                 alert("Mobile Number is Invalid");
